@@ -195,13 +195,15 @@ def handle_transactions():
 # MULTI-THREADED APP INITIALIZER
 # ==========================================
 
-if __name__ == '__main__':
-    # Initialize systemic setup tables mapping structure layouts
-    init_db()
-    
-    # Launch the AI agent listener safely within an asynchronous daemon thread context
-    bot_thread = threading.Thread(target=start_telegram_bot, daemon=True)
+init_db()
+
+# Start Telegram bot only once (preventing worker duplication)
+if os.environ.get("WERKZEUG_RUN_MAIN") != "true":
+    bot_thread = threading.Thread(
+        target=start_telegram_bot,
+        daemon=True
+    )
     bot_thread.start()
-    
-    # Initialize running loop process maps (reloader deactivated to block execution duplication)
+
+if __name__ == '__main__':
     app.run(debug=True, use_reloader=False)
