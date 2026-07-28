@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Monthly Diversification Statement</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+    <div class="nav-profile-group">
+        {% if session.get('profile_pic') %}
+            <img src="{{ url_for('static', filename='uploads/' + session.get('profile_pic')) }}" class="nav-avatar" alt="Profile Picture">
+        {% else %}
+            <div class="nav-avatar-fallback">👑</div>
+        {% endif %}
+        
+        <div class="nav-user-meta">
+            <span class="nav-label">Welcome,</span>
+            <span class="nav-user-title">{{ session.get('username', 'gurumoorthy') }}</span>
+            
+        
+        </div>
+        <a href="/logout" class="btn-logout-action">Logout</a>
+    </div>
+
+    <div class="navbar-links-menu">
+        <a href="/" class="nav-link active">Dashboard</a>
+        <a href="/income" class="nav-link">Income</a>
+        <a href="/expense" class="nav-link">Expense</a>
+        <a href="/dailyhistory" class="nav-link">History</a>
+        <a href="/weekly" class="nav-link">Weekly</a>
+        <a href="/monthly" class="nav-link">Monthly</a>
+        
+    </div>
+</nav>
+ <h1>ROYAL LEDGER</h1>
+</header>
+    <main>
+        <div class="card" style="max-width: 700px; margin: 0 auto;">
+            <h2>Monthly Resource Allocation Breakdown</h2>
+            <div class="chart-container">
+                <canvas id="monthlyReportChart"></canvas>
+            </div>
+            <p>Top Spending Category: <span class="top-expense-category">-</span></p>
+            <br>
+            
+<p>Top Income Source: <span class="top-income-category">-</span></p>
+        </div>
+       <a href="https://t.me/Finexinbot" target="_blank" class="telegram-floating-bubble">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Chat" />
+</a> 
+    </main>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

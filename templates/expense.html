@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debit Ledger | Royal Ledger</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+   <nav class="navbar">
+    <div class="nav-profile-group">
+        {% if session.get('profile_pic') %}
+            <img src="{{ url_for('static', filename='uploads/' + session.get('profile_pic')) }}" class="nav-avatar" alt="Profile Picture">
+        {% else %}
+            <div class="nav-avatar-fallback">👑</div>
+        {% endif %}
+        
+        <div class="nav-user-meta">
+            <span class="nav-label">Welcome,</span>
+            <span class="nav-user-title">{{ session.get('username', 'gurumoorthy') }}</span>
+            
+        
+        </div>
+        <a href="/logout" class="btn-logout-action">Logout</a>
+    </div>
+
+    <div class="navbar-links-menu">
+        <a href="/" class="nav-link active">Dashboard</a>
+        <a href="/income" class="nav-link">Income</a>
+        <a href="/expense" class="nav-link">Expense</a>
+        <a href="/dailyhistory" class="nav-link">History</a>
+        <a href="/weekly" class="nav-link">Weekly</a>
+        <a href="/monthly" class="nav-link">Monthly</a>
+        
+    </div>
+</nav>
+ <h1>ROYAL LEDGER</h1>
+</header>
+
+    <main>
+        <div class="grid" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: start;">
+            
+            <div class="card">
+                <h2>Record Expense Debits</h2>
+                <form id="transaction-form" data-type="expense">
+                    <div class="form-group">
+                        <label for="amount">Amount (₹)</label>
+                        <input type="number" id="amount" step="0.01" placeholder="e.g. 140" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <input type="text" id="category" list="expense-categories" placeholder="e.g. Milk Cost" required>
+                        <datalist id="expense-categories"></datalist>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="note">Note / Reference</label>
+                        <textarea id="note" rows="3" placeholder="Bought daily provisions..."></textarea>
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px;">
+                        <button type="submit" style="flex: 2;">Log Debit Entry</button>
+                        <button type="button" id="clear-btn" style="flex: 1; background: #2C3539; color: #a5a5a5; border: 1px solid var(--border-color);">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Recent Expense Costs</h2>
+                <div class="table-container">
+                    <table id="local-expense-table">
+                        <thead>
+                            <tr>
+                                <th>Sl.No</th>
+                                <th>Amount</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+<a href="https://t.me/Finexinbot" target="_blank" class="telegram-floating-bubble">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Chat" />
+</a>
+        </div>
+    </main>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
