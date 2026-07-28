@@ -1,0 +1,565 @@
+/* ==========================================
+   1. ORIGINAL SYSTEM VARIABLE DEFINITIONS
+   ========================================== */
+:root {
+    --bg-darkest: #0b0f17;       /* Dark background */
+    --bg-surface: #111622;       /* Dark card canvas background */
+    --bg-input: #151b26;         /* Original input fields background */
+    
+    --accent-gold: #d4af37;      /* Classic Royal Gold theme color */
+    --text-main: #f5f7fa;        /* Main white text body */
+    --text-muted: #8a99ad;       /* Muted gray subtext */
+    --border-color: #242f41;     /* Deep gray line dividers */
+    
+    --income-green: #2ecc71;     /* Original variant transaction green */
+    --expense-red: #e74c3c;      /* Original variant transaction red */
+}
+
+/* ==========================================
+   2. GLOBAL BODY ARCHITECTURE & TYPOGRAPHY
+   ========================================== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 15px;
+    background-color: var(--bg-darkest);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-top: 0;
+}
+
+/* ==========================================
+   3. CONTAINERS & INTERACTIVE GRIDS
+   ========================================== */
+.card, .amount-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.amount-card.income-display h3 {
+    color: var(--income-green);
+}
+.amount-card.expense-display h3 {
+    color: var(--expense-red);
+}
+
+/* ==========================================
+   4. FORM ELEMENTS & INTERFACES
+   ========================================== */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-main);
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+}
+
+/* Primary Form Action Button Elements */
+button, .btn-primary {
+    background-color: var(--bg-input);
+    color: var(--accent-gold);
+    border: 1px solid var(--accent-gold);
+    padding: 12px 24px;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+button:hover, .btn-primary:hover {
+    background-color: var(--accent-gold);
+    color: #000000;
+}
+
+/* ==========================================
+   5. HISTORY DATA TABLES
+   ========================================== */
+.table-responsive {
+    overflow-x: auto;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: rgba(21, 27, 38, 0.5);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 14px;
+}
+
+/* ==========================================
+   6. NAVIGATION BAR COMPONENTS
+   ========================================== */
+/* ==========================================
+   FULL-WIDTH STRETCH NAVIGATION MANAGEMENT
+   ========================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+    padding: 14px 24px;
+    margin-bottom: 30px;
+    width: 100%;             /* Scales out to fit full workspace container bounds */
+    box-sizing: border-box;  /* Prevents padding from causing layout overflow problems */
+    border-radius: 4px;
+}
+
+/* Profile Left Corner Element Alignment */
+.nav-profile-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Perfect Circular Profile Picture Rendering */
+.nav-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;       /* Clips square images into exact geometric circles */
+    object-fit: cover;        /* Prevents distortion or squishing of the uploaded picture */
+    border: 2px solid var(--accent-gold);
+    background-color: var(--bg-input);
+}
+
+/* Alternative Initial Icon Fallback */
+.nav-avatar-fallback {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+/* Left Metadata Identity Blocks */
+.nav-user-meta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+}
+
+.nav-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.nav-user-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent-gold);
+}
+
+/* Right-Aligned Menu Controls */
+.navbar-links-menu {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--accent-gold);
+}
+
+/* Logout Portal Action Interface Button */
+.btn-logout-action {
+    background-color: transparent;
+    border: 1px solid var(--expense-red);
+    color: var(--expense-red);
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-logout-action:hover {
+    background-color: var(--expense-red);
+    color: #000000;
+}
+
+/* Responsive Adaptive Setup For Mobile Viewports */
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px;
+        text-align: center;
+    }
+    .nav-profile-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .navbar-links-menu {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+    .btn-logout-action {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+}
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .navbar-menu {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+    .btn-logout {
+        width: 100%;
+    }
+}
+
+/* ==========================================
+   7. OPTION 3: FLOATING TELEGRAM CHAT CONSOLE
+   ========================================== */
+.telegram-floating-bubble {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    background-color: #0088cc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    transition: transform 0.2s;
+}
+
+.telegram-floating-bubble:hover {
+    transform: scale(1.08);
+}
+
+.telegram-floating-bubble img {
+    width: 28px;
+    height: 28px;
+}
+
+/* ==========================================
+   8. RESPONSIVE SCREEN LAYOUT RULES
+   ========================================== */
+@media screen and (min-width: 768px) {
+    body { padding: 25px; }
+    .container { max-width: 720px; }
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .container { max-width: 960px; }
+    .dashboard-grid { grid-template-columns: repeat(3, 1fr); }
+    .main-workspace {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 25px;
+        align-items: start;
+    }
+}
+/* ==========================================
+   UPDATED UNIFIED FLEX NAVIGATION BAR
+   ========================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 24px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+}
+
+/* Profile Block (Image + Text Grouping) */
+.nav-profile-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Profile Avatar Sizing */
+.nav-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent-gold);
+}
+
+.nav-avatar-fallback {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+/* User Info Styling */
+.nav-user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-welcome {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nav-username {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent-gold);
+}
+
+/* Navigation Links Menu */
+.navbar-menu {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--accent-gold);
+}
+
+/* Logout Actions */
+.btn-logout {
+    background: transparent;
+    border: 1px solid var(--expense-red);
+    color: var(--expense-red);
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+    background: rgba(231, 76, 60, 0.1);
+}
+
+/* Mobile Responsive Compression */
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px;
+        text-align: center;
+    }
+    .nav-profile-block {
+        flex-direction: column;
+        gap: 6px;
+    }
+    .navbar-menu {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+    .btn-logout {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+}
+
+.right-sidebar-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.mini-widget {
+    padding: 16px !important;
+    background-color: var(--bg-surface);
+}
+
+.widget-title {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+}
+
+#live-clock {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--accent-gold);
+    font-family: monospace;
+}
+
+.system-status-indicator {
+    font-size: 12px;
+    color: #2ecc71;
+    margin-top: 5px;
+}
+
+.sidebar-btn {
+    display: block;
+    text-align: center;
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    font-size: 13px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.sidebar-btn:hover {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+}
+
+.sidebar-btn.telegram-accent {
+    border-color: #0088cc;
+    color: #0088cc;
+}
+.sidebar-btn.telegram-accent:hover {
+    background-color: #0088cc;
+    color: #ffffff;
+}
+@media screen and (min-width: 1024px) {
+    .main-workspace {
+        display: grid;
+        grid-template-columns: 1fr 2fr; /* 1 Column Form, 2 Columns for History Table */
+        gap: 25px;
+    }
+}
+/* Ensure main grid cards wrap correctly inside their layout zone */
+.dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.full-width-card {
+    width: 100%;
+}
+
+/* Wide Monitor Grid Split Setup (Balances left/center against right sidebar) */
+@media screen and (min-width: 1024px) {
+    .main-workspace {
+        display: grid;
+        grid-template-columns: 2.5fr 1fr; /* 70% content grid, 30% right utilities sidebar */
+        gap: 24px;
+        align-items: start;
+    }
+    
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .full-width-card, .chart-card {
+        grid-column: span 2; /* Forces Balance Banner and Chart Graphic to stretch over 2 columns */
+    }
+}
