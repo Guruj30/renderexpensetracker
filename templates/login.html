@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateway Portal | Royal Ledger</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Embedded styling to bridge your specific layout tabs into the premium dark framework */
+        .auth-container {
+            max-width: 450px;
+            margin: 80px auto;
+        }
+        .tab-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--bg-input);
+            color: var(--secondary-gray);
+            border: var(--border-subtle);
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            transition: all 0.2s ease;
+        }
+        .tab-btn.active {
+            border-color: var(--primary-neon);
+            color: var(--primary-neon);
+            background: rgba(0, 242, 254, 0.05);
+        }
+        .auth-form {
+            display: none;
+            flex-direction: column;
+        }
+        .auth-form.active {
+            display: flex;
+        }
+        .alert-box {
+            padding: 14px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+        .alert-error {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--accent-expense);
+            border: 1px solid rgba(255, 82, 82, 0.2);
+        }
+        .alert-success {
+            background: rgba(0, 230, 118, 0.1);
+            color: var(--accent-income);
+            border: 1px solid rgba(0, 230, 118, 0.2);
+        }
+        /* Custom stylings to make file inputs match your sleek dark inputs */
+        input[type="file"] {
+            padding: 10px;
+            cursor: pointer;
+        }
+        input[type="file"]::file-selector-button {
+            background: var(--bg-surface);
+            border: var(--border-subtle);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-wrapper">
+        <div class="card auth-container">
+            <div class="login-header">
+                <h1 style="background: linear-gradient(135deg, var(--primary-glow) 0%, var(--primary-neon) 100%); -webkit-text-fill-color: transparent;">ROYAL LEDGER</h1>
+                <p style="margin-bottom: 20px;">Access your digital financial vault</p>
+            </div>
+            
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('login-box', event)">Sign In</button>
+                <button class="tab-btn" onclick="switchTab('register-box', event)">Register</button>
+            </div>
+
+            {% if error %}<div class="alert-box alert-error">⚠️ {{ error }}</div>{% endif %}
+            {% if success %}<div class="alert-box alert-success">✨ {{ success }}</div>{% endif %}
+
+            <form id="login-box" class="auth-form active" action="/login" method="POST">
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" name="username" placeholder="Enter username" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" placeholder="Enter password" required>
+                </div>
+                <button type="submit">Authenticate</button>
+            </form>
+
+            <form id="register-box" class="auth-form" action="/register" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="reg-username">Create Username</label>
+                    <input type="text" id="reg-username" name="username" placeholder="Choose a unique username" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Create Password</label>
+                    <input type="password" id="reg-password" name="password" placeholder="Choose a strong password" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-pic">Profile Image <span style="color: var(--secondary-gray); font-size: 0.75rem;">(Optional)</span></label>
+                    <input type="file" id="profile-pic" name="profile_pic" accept="image/*">
+                </div>
+                <button type="submit">Register Profile</button>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId, event) {
+            // Hide both container layout blocks
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            // Remove active properties across tabs
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            // Activate target workspace views
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>

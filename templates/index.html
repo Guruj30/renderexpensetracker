@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Royal Ledger</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-profile-group">
+            {% if session.get('profile_pic') %}
+                <img src="{{ url_for('static', filename='uploads/' + session.get('profile_pic')) }}" class="nav-avatar" alt="Profile Picture">
+            {% else %}
+                <div class="nav-avatar-fallback">👑</div>
+            {% endif %}
+            
+            <div class="nav-user-meta">
+                <span class="nav-label">Welcome,</span>
+                <span class="nav-user-title">{{ session.get('username', 'gurumoorthy') }}</span>
+            </div>
+            <a href="/logout" class="btn-logout-action">Logout</a>
+        </div>
+
+        <div class="navbar-links-menu">
+            <a href="/" class="nav-link active">Dashboard</a>
+            <a href="/income" class="nav-link">Income</a>
+            <a href="/expense" class="nav-link">Expense</a>
+            <a href="/dailyhistory" class="nav-link">History</a>
+            <a href="/weekly" class="nav-link">Weekly</a>
+            <a href="/monthly" class="nav-link">Monthly</a>
+        </div>
+    </nav>
+
+    <header class="container" style="margin-bottom: 20px;">
+        <h1 style="letter-spacing: 1px; color: var(--text-main);">ROYAL LEDGER</h1>
+    </header>
+
+    <div class="container main-workspace">
+        
+        <div class="dashboard-grid">
+            
+            <div class="card full-width-card" style="border-image: linear-gradient(to right, var(--accent-gold), var(--income-green)) 1;">
+                <h2>Available Balance</h2>
+                <div class="amount-display available-balance" style="color: #F4F6F7; font-size: 24px; font-weight: 700; margin-top: 10px;">₹0.00</div>
+            </div>
+            
+            <div class="card income-display">
+                <h2>Total Income Balance</h2>
+                <div class="amount-display income" style="color: var(--income-green); font-size: 20px; font-weight: 700; margin-top: 10px;">₹0.00</div>
+            </div>
+
+            <div class="card expense-display">
+                <h2>Total Expense Ledger</h2>
+                <div class="amount-display expense" style="color: var(--expense-red); font-size: 20px; font-weight: 700; margin-top: 10px;">₹0.00</div>
+            </div>
+            
+            <div class="card chart-card">
+                <h2>Daily Matrix Comparison</h2>
+                <div class="chart-container" style="position: relative; margin-top: 15px; height: 260px;">
+                    <canvas id="dashboardDailyChart"></canvas>
+                </div>
+            </div>
+            
+        </div>
+        
+        <aside class="right-sidebar-panel">
+            <div class="card mini-widget">
+                <div class="widget-title">SYSTEM STATUS</div>
+                <div class="system-time" id="live-clock">00:00:00 PM</div>
+                <div class="system-status-indicator">🟢 Cloud Terminal Sync</div>
+            </div>
+
+         <a href="https://t.me/Finexinbot" target="_blank" class="telegram-floating-bubble">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Chat" />
+</a>
+        </aside>
+
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
