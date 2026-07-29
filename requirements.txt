@@ -71,7 +71,6 @@ pyparsing==3.3.2
 pypiwin32==223
 python-dotenv==1.2.2
 python-telegram-bot==21.0.1
-
 PyYAML==6.0.3
 redis==8.0.1
 requests==2.34.2
